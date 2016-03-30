@@ -1,6 +1,6 @@
 {
-  "name": "meanjs",
-  "description": "Fullstack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
+  "name": "doar",
+  "description": "Projeto de engenharia de software: donation-place",
   "homepage": "http://meanjs.org/",
   "license": "MIT",
   "dependencies": {
