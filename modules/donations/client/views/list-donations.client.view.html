@@ -14,6 +14,8 @@
         <span data-ng-if="!donation.user">Deleted User</span>
       </small>
       <h4 class="list-group-item-heading" data-ng-bind="donation.name"></h4>
+      <p data-ng-bind="donation.description"></p>
+      <p data-ng-bind="donation.repeat"></p>
     </a>
   </div>
   <div class="alert alert-warning text-center" data-ng-if="vm.donations.$resolved && !vm.donations.length">

@@ -24,6 +24,10 @@ Todavia, pode-se destacar que o Modelo Cascata, devido as características do pr
 
 Além disso, como projeto da disciplina, pode-se considerar que o processo teve etapas bem definidas e modeladas, como prega o Modelo Cascata. Porém, minha ideia é continuar desenvolvendo o sistema, logo a entrega da disciplina seria a versão inicial e o processo deve continuar com o Desenvolvimento Incremental.
 
+Também vale destacar que ao iniciar o projeto com o SCRUM, criei um quadro de KanBan no [Trello](http://trello.com) que se mostrou muito útil mesmo com o modelo cascata.
+
+![enter image description here](https://lh3.googleusercontent.com/-bVj468SAf5g/V2jF-Om5VuI/AAAAAAAABZw/X8YfxfP1VKMwuVelpPjBo5xIk7KZCLTvwCLcB/s0/Screenshot+from+2016-06-21+01%253A41%253A42.png "trello")
+
 ##Escolha da linguagem e framework
 
 Apesar da preferência da disciplina pelo Java, optei por desenvolver o sistema utilizando JavaScript [(ECMAScript 5)](http://www.ecmascript.org/http://www.ecmascript.org/). Essa escolha se deu por diversos fatores, entre eles:
@@ -358,3 +362,89 @@ As Views no AngularJS são páginas em HTML extendidas com alguns comandos únic
 </section>
 
 ```
+##Funcionamento do sistema
+Para melhor detalhar o funcionamento durante o uso do sistema, nesse diagrama são mapeadas as atividades em sequência:
+
+![enter image description here](https://lh3.googleusercontent.com/-r0Z4RTFI92o/V2ibx1QfjdI/AAAAAAAABYc/8h2n0MfyqHQ9BDDMy3bdzUSO7eF1CmP6QCLcB/s0/Diagrama+de+Sequ%25C3%25AAncia.png "Diagrama de Sequência")
+
+##Classes
+
+Dada a estrutura arquitetural do projeto, demonstrarei agora a estrutura lógica, começando com uma análise das classes do projeto.
+
+Apesar da ausência de tabelas SQL e classes nativas (Java), como um requisito da disciplina, tentei modelar o sistema da seguinte forma:
+
+![enter image description here](https://lh3.googleusercontent.com/-ePhKI_6qFRU/V2iVn0hYNMI/AAAAAAAABX0/xucSDfW1VH4f1fQgbNjoIZsRuk7LVQ3kQCLcB/s0/Diagrama+de+Classes+%25281%2529.png "Diagrama de Classes")
+
+A classe User é a principal, servindo de base para os usuários `ngo` que são ONG's ou insitituições, para os usuários `donators`que são os potenciais doadores e  para os administradores `admin`.
+
+Como não há no Mongo e no Mongoose a implementação direta de generalização/especialização, isso foi feito de forma indireta, através da propriedade `roles` no modelo User. Dentro dessa propriedade, explicita-se qual o tipo de usuário, e com isso controla-se por meio de programação as diferenças entre cada especialização.
+
+A classe Donation é onde a insituição cadastra o que ela precisa para que os doadores possam registrar sua intenção de doação.
+
+As classe donator e admin não possuem atributos diferentes de User, porém se diferenciam no uso do sistema, por isso sua separação.
+
+###Comunicação e atividades
+
+Percebemos com a modelagem de classes que temos basicamente apenas duas classes comunicando entre si para que o sistema funcione: User e Donation.
+
+Enquanto a especialização `ngo` "escreve" na classe Donation, criando novos objetos; a especialização `donator`na maior parte do tempo lê as Donations e caso haja a intenção de doação, escreve no objeto atualizando apenas um campo do objeto. Esse processo pode ser observado no seguinte diagrama:
+
+![enter image description here](https://lh3.googleusercontent.com/-wE_W50IIDzA/V2irpGdXljI/AAAAAAAABY4/NrHVTGfY4eAipc9DbSQmy1WIqSl3gwmWACLcB/s0/Diagrama+de+Comunica%25C3%25A7%25C3%25A3o.png "Diagrama de Comunicação")
+
+Apesar da simplicidade desse processo, é preciso ter em mente que ele deve ser bem claro e definido para que ele possa se encaixar dentro da estrutura detalhada em um tópico anterior, caso contrário, podem ocorrer conflitos entre as camadas da arquitetura. Para melhor detalhar esse processo, podemos considerar o seguinte diagrama de atividades:
+
+![enter image description here](https://lh3.googleusercontent.com/-Tkdrj_fhuW0/V2ixSds6oVI/AAAAAAAABZU/PrguVPBMaPQi7mPtrMaaeOm5MMrk4-KCACLcB/s0/Diagrama+de+Atividades.png "Diagrama de Atividades")
+
+#Implementação
+
+O código do sistema está disponível no [GitHub](https://github.com/icaroharry/doar).
+
+Para implementar a estrutura arquitetada e projetada foi utilizada a seguinte estrutura de pastas:
+
+ - modules
+   - core
+   - donations
+   - users
+
+O módulo `core` implementa as funcionalidades gerais do sistema (que não estão diretamente ligadas a nenhum outro módulo).
+
+Dentro dos módulos há a seguinte estrutura:
+
+ - users
+   - client
+     - config
+     - controllers
+     - css
+     - directives
+     - img
+     - services
+     - views
+   - server
+     - config
+     - controllers
+     - models
+     - policies
+     - routes
+     - templates
+   - tests
+     - client
+     - e2e
+     - server
+
+O sistema ainda não pôde ser completamente implementado. Dos requisitos descritos na documentação ainda está faltando implementar a parte relacionada ao "Doador". Atualmente é possível ver todas as doações disponíveis, mas não é possível registrar intenções de doação.
+
+#Conclusão
+
+O trabalho foi muito interessante de ser feito. Pude aplicar grande parte dos conhecimentos adquiridos na disciplina. De fato, pude perceber que a teoria auxilia muito o desenvolvimento prático de sistemas. Os métodos já estudados e detalhados, como processos de software, reutilização de código, testes, engenharia de requisistos, entre outros, facilitam muito o desenvolvimento de sistemas robustos e escaláveis.
+
+Pude perceber que, como o professor citou em algumas aulas, o conhecimento teórico não detalha exatamente o que deve ser feito na prática, mas ele dá uma boa base para que se faça software de uma maneira mais inteligente e efetiva.
+
+Optei por desenvolver um sistema sozinho utilizando ferramentas que não estavam previstas na disciplina. Obtive algumas vantagens nisso, pela familiaridade que ja possuia com as mesmas, porém enfrentei desafios interessantes ao "migrar" as abordagens, que na maior parte da disciplina foram feitas com o Java, para o JavaScript.
+
+Os diagramas da UML se mostraram muito poderosos, podendo detalhar vários aspectos do sistema. Entretanto, alguns se mostraram pouco flexíveis para esse projeto, como o Diagrama de Classes. Não pude detalhar muito bem o funcionamento da abordagem que escolhi, porém consegui promover uma visualização básica do funcionamento das classes.
+
+A reutilização de código se mostrou extremamente poderosa nesse contexto. Consegui desenvolver funcionalidades que dificilmente faria "do zero" no prazo da disciplina.
+
+Por fim, a utilização de padrões arquiteturais foram de grande valor para o resultado final. Pude perceber que sem os padrões cliente-servidor e MVC, o sistema não funcionaria adequadamente e seria extremamente desorganizado e confuso.
+
+O desenvolvimento desse projeto gerou grande conhecimento pessoal por meio da aplicação prática de matérias da disciplina. A ideia é continuar desenvolvendo-o para que ele possa ser lançado e utilizado para ajudar as pessoas.

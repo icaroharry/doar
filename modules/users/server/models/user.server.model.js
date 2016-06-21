@@ -28,21 +28,11 @@ var validateLocalStrategyEmail = function (email) {
  * User Schema
  */
 var UserSchema = new Schema({
-  firstName: {
+  name: {
     type: String,
     trim: true,
     default: '',
     validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-  },
-  lastName: {
-    type: String,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-  },
-  displayName: {
-    type: String,
-    trim: true
   },
   email: {
     type: String,
@@ -63,6 +53,17 @@ var UserSchema = new Schema({
     type: String,
     default: ''
   },
+  address: {
+    street:  { type: String, trim: true },
+    neighborhood:  { type: String, trim: true },
+    complement:  { type: String, trim: true }
+  },
+  cnpj: {
+    type: String
+  },
+  site: {
+    type: String
+  },
   salt: {
     type: String
   },
@@ -79,9 +80,9 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin']
+      enum: ['ngo', 'donator', 'admin']
     }],
-    default: ['user'],
+    default: ['ngo'],
     required: 'Please provide at least one role'
   },
   updated: {

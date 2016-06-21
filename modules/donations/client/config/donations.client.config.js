@@ -26,7 +26,7 @@
     Menus.addSubMenuItem('topbar', 'donations', {
       title: 'Create Donation',
       state: 'donations.create',
-      roles: ['user']
+      roles: ['ngo']
     });
   }
 })();

@@ -32,7 +32,7 @@
           donationResolve: newDonation
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['ngo', 'admin'],
           pageTitle : 'Donations Create'
         }
       })
@@ -45,7 +45,7 @@
           donationResolve: getDonation
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['ngo', 'admin'],
           pageTitle: 'Edit Donation {{ donationResolve.name }}'
         }
       })

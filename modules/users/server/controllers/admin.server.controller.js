@@ -21,10 +21,6 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var user = req.model;
 
-  //For security purposes only merge these parameters
-  user.firstName = req.body.firstName;
-  user.lastName = req.body.lastName;
-  user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
 
   user.save(function (err) {
@@ -59,7 +55,7 @@ exports.delete = function (req, res) {
  * List of Users
  */
 exports.list = function (req, res) {
-  User.find({}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  User.find({}, '-salt -password').sort('-created').populate('user', 'name').exec(function (err, users) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

@@ -13,6 +13,14 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="control-label" for="name">Description</label>
+          <input name="description" type="textarea" ng-model="vm.donation.description" id="desc" class="form-control" placeholder="Description" required>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="name">Repeat</label>
+          <input name="repeat" type="checkbox" ng-model="vm.donation.repeat" id="desc" class="form-control" required>
+        </div>
+        <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.donation._id ? 'Update' : 'Create'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">

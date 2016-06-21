@@ -16,6 +16,15 @@ var DonationSchema = new Schema({
     required: 'Please fill Donation name',
     trim: true
   },
+  description: {
+    type: String,
+    required: 'Please fill Donation description',
+    trim: true
+  },
+  repeat: {
+    type: Boolean,
+    required: 'Please fill Donation repeat',
+  },
   created: {
     type: Date,
     default: Date.now

@@ -4,17 +4,10 @@
     <form name="userForm" ng-submit="signup(userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
         <div class="form-group" show-errors>
-          <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.firstName" placeholder="First Name" required>
-          <div ng-messages="userForm.firstName.$error" role="alert">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" class="form-control" ng-model="credentials.name" placeholder="Name" required>
+          <div ng-messages="userForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">First name is required.</p>
-          </div>
-        </div>
-        <div class="form-group" show-errors>
-          <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="credentials.lastName" placeholder="Last Name" required>
-          <div ng-messages="userForm.lastName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
@@ -45,6 +38,29 @@
         <div class="form-group" ng-show="!userForm.password.$error.required">
           <label>Password Requirements</label>
           <progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></progressbar>
+        </div>
+        <div class="form-group">
+          <label for="sel1">User type:</label>
+          <select ng-model="credentials.roles" class="form-control" id="sel1">
+            <option ng-value="donator">Donator</option>
+            <option ng-value="ngo">NGO</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="site">Site</label>
+          <input type="text" id="site" name="site" class="form-control" ng-model="credentials.site" placeholder="Site" >
+        </div>
+        <div class="form-group">
+          <label for="addressStreet">Address Street</label>
+          <input type="text" id="addressStreet" name="addressStreet" class="form-control" ng-model="credentials.address.street" placeholder="Address Street" >
+        </div>
+        <div class="form-group">
+          <label for="addressStreet">Address Neighbourhood</label>
+          <input type="text" id="addressNeighbourhood" name="addressneighbourhood" class="form-control" ng-model="credentials.address.neighbourhood" placeholder="Address Neighbourhood" >
+        </div>
+        <div class="form-group">
+          <label for="addressComplement">Address Complement</label>
+          <input type="text" id="addressComplement" name="addressComplement" class="form-control" ng-model="credentials.address.complement" placeholder="Address Complement" >
         </div>
         <div class="text-center form-group">
           <button type="submit" class="btn btn-primary">Sign up</button>
