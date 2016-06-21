@@ -1,324 +1,360 @@
-[![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
-
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/meanjs/mean?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/meanjs/mean.svg?branch=master)](https://travis-ci.org/meanjs/mean)
 [![Dependencies Status](https://david-dm.org/meanjs/mean.svg)](https://david-dm.org/meanjs/mean)
 [![Coverage Status](https://coveralls.io/repos/meanjs/mean/badge.svg?branch=master&service=github)](https://coveralls.io/github/meanjs/mean?branch=master)
 
-MEAN.JS is a full-stack JavaScript open-source solution, which provides a solid starting point for [MongoDB](http://www.mongodb.org/), [Node.js](http://www.nodejs.org/), [Express](http://expressjs.com/), and [AngularJS](http://angularjs.org/) based applications. The idea is to solve the common issues with connecting those frameworks, build a robust framework to support daily development needs, and help developers use better practices while working with popular JavaScript components.
+#Introdução
 
-## Before You Begin
-Before you begin we recommend you read about the basic building blocks that assemble a MEAN.JS application:
-* MongoDB - Go through [MongoDB Official Website](http://mongodb.org/) and proceed to their [Official Manual](http://docs.mongodb.org/manual/), which should help you understand NoSQL and MongoDB better.
-* Express - The best way to understand express is through its [Official Website](http://expressjs.com/), which has a [Getting Started](http://expressjs.com/starter/installing.html) guide, as well as an [ExpressJS Guide](http://expressjs.com/guide/error-handling.html) guide for general express topics. You can also go through this [StackOverflow Thread](http://stackoverflow.com/questions/8144214/learning-express-for-node-js) for more resources.
-* AngularJS - Angular's [Official Website](http://angularjs.org/) is a great starting point. You can also use [Thinkster Popular Guide](http://www.thinkster.io/), and the [Egghead Videos](https://egghead.io/).
-* Node.js - Start by going through [Node.js Official Website](http://nodejs.org/) and this [StackOverflow Thread](http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js), which should get you going with the Node.js platform in no time.
+Esse projeto faz parte da matéria de [Engenharia de Software](http://homepages.dcc.ufmg.br/~figueiredo/disciplinas/2016a/dcc603.htm). O sistema que foi desenvolvido é um software voltado para ONGs e instituições de caridade que necessitam de doações esporádicas ou periódicas. A ideia é conectar, por meio de um sistema on-line, as instituições e potenciais doadores. Ou seja, as ONGs podem se cadastrar e listar as doações que precisam. Após isso, doadores podem registrar o interesse de doação para que a ONG entre em contato com ele e seja combinada a melhor forma de receber a doação.
 
+##Processos de software
 
-## Prerequisites
-Make sure you have installed all of the following prerequisites on your development machine:
-* Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager. If you encounter any problems, you can also use this [GitHub Gist](https://gist.github.com/isaacs/579814) to install Node.js.
-  * Node v5 IS NOT SUPPORTED AT THIS TIME! 
-* MongoDB - [Download & Install MongoDB](http://www.mongodb.org/downloads), and make sure it's running on the default port (27017).
-* Ruby - [Download & Install Ruby](https://www.ruby-lang.org/en/documentation/installation/)
-* Bower - You're going to use the [Bower Package Manager](http://bower.io/) to manage your front-end packages. Make sure you've installed Node.js and npm first, then install bower globally using npm:
+No início do projeto, foi planejado o uso do SCRUM, por ser um método ao qual estou mais familiarizado, mas ao decorrer do primeiro sprint, percebi que ele não estava adequado. O fato do sistema ter requisitos bem definidos e uma certa simplicidade, a revisão diária (daily standups) e bi-semanal (sprints) do projeto estavam sendo desnecessárias e despendendo muito tempo. Além disso, o fato do projeto estar sendo desenvolvido aos poucos, gerou um atraso nos prazos do primeiro sprint e consequentemente uma desorganização do planejamento inicial. Por esse motivo, decidi utilizar o Modelo Cascata.
 
-```bash
-$ npm install -g bower
+![Modelo Cascata](https://upload.wikimedia.org/wikipedia/commons/0/08/Modelo_em_cascata.png)
+
+Portanto, o sistema foi desenvolvido seguindo o [Modelo Cascata](https://pt.wikipedia.org/wiki/Modelo_em_cascata), tendo suas etapas bem definidas e documentadas. Esse modelo foi escolhido por vários motivos:
+ - A simplicidade do sistema;
+ - Seus requisitos bem definidos e claros;
+ - Ao fato de o sistema ter sido desenvolvido por apenas uma pessoa;
+ - Ao calendário de prazos e ao pouco tempo que pôde ser dedicado ao projeto (já que o mesmo não foi de dedicação exclusiva, devido a existência de outras matérias e outros projetos paralelos);
+
+A escolha do Modelo Cascata promoveu uma flexibilidade quanto ao calendário. Não houve a necessidade de um planejamento contínuo e repetitivo.
+
+Todavia, pode-se destacar que o Modelo Cascata, devido as características do projeto em questão tomou para si características de outros processos de software, como a Engenharia de Software Orientada a Reuso. Tendo em vista a grande quantidade de ferramentas e módulos reusáveis que foram integrados no projeto, a fase de implementação e projeto agregou a análise de componentes e sua integração.
+
+Além disso, como projeto da disciplina, pode-se considerar que o processo teve etapas bem definidas e modeladas, como prega o Modelo Cascata. Porém, minha ideia é continuar desenvolvendo o sistema, logo a entrega da disciplina seria a versão inicial e o processo deve continuar com o Desenvolvimento Incremental.
+
+##Escolha da linguagem e framework
+
+Apesar da preferência da disciplina pelo Java, optei por desenvolver o sistema utilizando JavaScript [(ECMAScript 5)](http://www.ecmascript.org/http://www.ecmascript.org/). Essa escolha se deu por diversos fatores, entre eles:
+
+ - Familiaridade com a linguagem;
+ - O desejo de que o projeto se transforme em uma plataforma funcional que rode em browsers;
+ - Presença de frameworks aos quais possuo experiência de uso.
+
+O JavaScript atualmente é uma das linguagens mais utilizadas para o desenvolvimento web. Seu surgimento voltado para os browsers fez com que a linguagem se desenvolvesse de maneira a atender completamente sistemas web que seguem a arquitetura cliente-servidor. Por isso, atualmente é possível desenvolver sistemas completos, desde o banco de dados, até a interface com o usuário, utilizando JavaScript como linguagem de programação. Portanto, essa foi a abordagem escolhida para o projeto.
+
+###Banco de Dados
+Para o banco de dados, ao invés de uma abordagem tradicional com banco de dados relacionais acessados por SQL, foi escolhido o uso do [MongoDB](https://www.mongodb.com/). Um banco de dados "NoSQL" acessado e controlado por JavaScript. Sua arquitetura trabalha muito bem com a linguagem e permite uma alta [escalabilidade horizontal](https://gist.github.com/lucasuyezu/b64c7bc5cf7f81c2f7bd).
+
+O MongoDB é um banco de dados orientado a documentos, ao invés de linhas em tabelas. Portanto registra-se apenas JSON (objetos JavaScript) em "coleções" na base de dados. Ou seja, em bancos de dados relacionais utiliza-se o conceito de tabelas e a cada registro cria-se uma nova linha na tabela. Por exemplo, vamos considerar uma tabela simples de usuário.
+
+![Tabela de Usuário](https://lh3.googleusercontent.com/--DxMGXwWlgA/V2hRXODG6cI/AAAAAAAABWo/qtdXfupgBlUmKRmTTftFIHGjZmX1p1fdACLcB/s0/user.png "Tabela de usuário")
+
+Podemos inserir um novo usuário utilizando SQL:
+
+```SQL
+INSERT INTO Usuários ("Ícaro", "icaro", "senha")
 ```
 
-* Grunt - You're going to use the [Grunt Task Runner](http://gruntjs.com/) to automate your development process. Make sure you've installed Node.js and npm first, then install grunt globally using npm:
+Já o MongoDB utiliza o conceito de coleção. Então podemos considerar uma coleção Usuários. E inserir um novo usuário da seguinte forma:
 
-```bash
-$ npm install -g grunt-cli
+```javascript
+//Cria a coleção
+db.createCollection("Usuários");
+//Insere um novo usuário na coleção Usuários
+db.Usuários.insert({
+  nome: "Icaro",
+  login: "icaro",
+  senha: "senha"
+});
+``` 
+É interessante destacar que o MongoDB não possui uma estrutura fixa como tabelas em SQL, o que significa que você pode criar usuários com diferentes estruturas, por exemplo:
+
+```javascript
+// Usuário 1
+db.Usuários.insert({
+  nome: "Icaro",
+  login: "icaro",
+  senha: "senha"
+});
+// Usuário 2
+db.Usuários.insert({
+  nome: "José",
+  login: "jose",
+  password: "senha2",
+  endereço: {
+    rua: "Rua das flores, 222",
+    bairro: "Bairro das pedras"
+  }
+});
+``` 
+Portanto é preciso ter cuidado. Essa flexibilidade é muito útil em várias aplicações do MongoDB, entretanto, para o caso desse projeto, principalmente pelo uso da Orientação a Objetos, é interessante que haja uma melhor estruturação dos modelos. Sendo assim, usa-se o [Mongoose](http://mongoosejs.com/), um ODM (object document mapper), que cria restrições para os documentos do MongoDB, de forma que eles se comportem como um objeto.
+
+###Servidor
+
+No lado do servidor, utiliza-se também a linguagem JavaScript, dessa vez com o [NodeJS](https://nodejs.org/en/). Essa plataforma permite que o JavaScript, inicialmente criado para rodar em browsers, seja rodado no lado do servidor. O que o NodeJS faz é basicamente utilizar o interpretador de JS do Google Chrome, chamado V8, para interpretar a linguagem em um servidor e convertê-lo para uma linguagem de baixo nível.
+
+A arquitetura do NodeJS trabalha com um "core" mínimo, semelhante a arquitetura de Kernel. Ou seja, os criadores desenvolvem apenas as funcionalidades básicas com a plataforma e permitem que os desenvolvedores terceiros criem módulos (espécies de plugins) para que ele (NodeJS) seja extendido. 
+
+Por isso, para que haja uma comunicação cliente-servidor com o NodeJS, utiliza-se um módulo que implementa métodos que acessam o HTTP e realizam essa comunicação. O módulo HTTP utilizado nesse projeto chama-se [Express](http://expressjs.com/pt-br/).
+
+###Cliente
+
+No lado do cliente, também é utilizado o JavaScript, dessa vez com um framework [MVVM](http://www.devmedia.com.br/entendendo-o-pattern-model-view-viewmodel-mvvm/18411) chamado [AngularJS](http://angularjs.org). Esse framework permite receber os dados do servidor e trabalhá-los para sua melhor exibição para o usuário.
+
+###Reutilização de código
+
+Como pode-ser perceber, optei por uma abordagem com uma alta reutilização de código. Na minha visão, essa característica permite desenvolver um software robusto e poderoso com pouco recurso e tempo. Além disso, o JavaScript possui uma comunidade muito ativa, logo existe uma infinidade de bibliotecas e frameworks muito bem feitos e documentados. Vale também destacar que todas as bibliotecas e frameworks utilizados e, consequentemente, esse projeto são Open-Source. Tendo o seu código fonte disponível no [GitHub](http://github.com).
+
+O framework utilizado chama-se [MEAN.JS](http://meanjs.org). Ele agrega todas as ferramentas citadas acima de forma a facilitar o desenvolvimento, com uma estrutura pré-definida e bem organizada.
+
+##Testes
+O projeto possui testes unitários e de integração (e2e). Eles podem ser encontrados na pasta `tests` dentro de cada módulo. O framework escolhido possui uma cobertura de código de 70%, como explicitado em sua documentação.
+
+#Especificações de requisitos
+##Requisitos funcionais
+ - Cadastro de ONGs e doadores.
+ - Cada usuário (ONG ou doador) deve ser identificado por um identificador único que será o email.
+ - O sistema deve permitir autenticação e cadastro utilizando outras ferramentas. Ex: Facebook, Google, etc.
+ - As necessidades de doação registradas pela ONG devem estar disponíveis para visualização de qualquer pessoa, registrada ou não no sistema.
+ - Após um recebimento e registro de doação, a doação deve ficar disponível para visualização de qualquer pessoa.
+ - As intenções de doação só podem ser feitas por doadores cadastrados.
+ - As intenções de doação só podem ser visualizadas pela ONG e doador em questão.
+ - Ao receber uma intenção de doação, a ONG deve receber um email com as informações da doação e do doador.
+ - Após o registro de doação recebida, o sistema deve enviar um email para o doador informando a confirmação e mostrando novas necessidades de doação.
+
+##Requisitos Não-Funcionais
+
+ - A interface de usuário deve ser o mais simples possível para evitar que as doações sejam atrapalhadas por isso.
+ - Doações em dinheiro devem seguir a legislação vigente, se existir, sobre isso.
+ - A comunicação entre doador e ONG deve ser flexível: não obrigar que eles conversem o tempo todo dentro do sistema, para que o processo não fique "engessado".
+
+## Diagrama de casos de uso
+![enter image description here](https://lh3.googleusercontent.com/-Xwq50X1awCI/V1XknnPgxlI/AAAAAAAABVs/JF6MqGq4MLg_YD04eAIllSOuiWtBXyc2ACLcB/s0/Diagrama+de+caso+de+uso+-+Doar.png "Diagrama de caso de uso")
+## Descrição dos cenários de casos de uso
+
+###Pedir doação
+ - **Ator:** ONG
+ - **Pré-condição:** ONG cadastrada
+ - **Fluxo normal:** 
+   1. Digitar qual a doação necessária.
+   2. Informar o valor/quantidade
+   3. Informar qual o tipo da doação: *recorrente* ou *esporádica*
+   4. Informar observações
+ - **Pós-condição:** Doação é registrada e fica disponível para a visualização de doadores.
+
+
+###Registrar recebimento de doação
+ - **Ator:** ONG
+ - **Pré-condição:** ONG cadastrada e doação recebida
+ - **Fluxo normal:** 
+   1. Selecionar qual a doação foi recebida.
+   2. Informar o valor/quantidade
+   3. Informar observações
+   4. ***Notificar doador***
+ - **Pós-condição:** Se a doação é esporádica e o valor/quantidade for maior ou igual ao valor/quantidade pedido, remover doação da lista de necessidades da ONG.
+
+
+
+###Notificar doador
+ - **Ator:** Doador
+ - **Pré-condição:** Doação recebida e registrada
+ - **Fluxo normal:** 
+   1. Notificar doador sobre recebimento da doação enviada.
+   2. Mostrar outras doações necessárias
+
+
+
+###Oferecer doação
+ - **Ator:** Doador
+ - **Pré-condição:** Doador cadastrado
+ - **Fluxo normal:** 
+   1. Selecionar qual doação ele quer realizar
+   2. Informar o valor/quantidade
+   3. Informar observações
+   4. Informar forma de entrega
+ - **Pós-condição:** ONG recebe a intenção de doação e pode entrar em contato com o doador
+
+#Projeto
+
+O projeto do sistema Doar mostra-se bem interessante. Por se tratar de uma aplicação para web, são necessários diversos padrões arquiteturais a fim de que o sistema comunique-se com os vários protocolos existentes e ao mesmo tempo cresça e se torne mais robusto de forma organizada e consistente.
+
+Compreende-se a necessidade da aplicação dos padrôes: 
+ - Cliente-servidor
+ - MVC
+ - MVVM (variação do MVC)
+
+Além disso, devido as diferentes ferramentas utilizadas, são necessários o uso de diferentes *design patterns* no código, que serão vistos na documentação do código, como:
+ - Dependecy Injection (AngularJS)
+ - Constructor Pattern (uso de OO com JavaScript)
+
+##Estrutura geral do projeto
+
+ O projeto foi arquitetado com uma estrutura de cliente-servidor, tendo suas "peças" bem definidas e separadas pelo modelo MVC. As ferramentas foram detalhadas na introdução e sua conexão pode ser detalhada pelo seguinte diagrama de componentes:
+
+ ![enter image description here](https://lh3.googleusercontent.com/-6BB0-bUfZiw/V2hmleoBlTI/AAAAAAAABXE/V2rG1TcRuecXmHY7xhyV59zfv6Rp2KGlACLcB/s0/componentes.png "Diagrama de componentes")
+
+Para melhor explicação da arquitetura, utilizarei o exemplo da classe User que é uma versão simplificada da classe User verdadeira utilizada no sistema.
+
+###Model
+A camada de Model do sistema é composta pelo banco de dados MongoDB e pelo modelo de objetos feito com Mongoose ODM. Como explicado na introdução, o banco de dados NoSQL, MongoDB, salva apenas documentos, que são basicamente objetos javascript: 
+
+```javascript
+{
+  nome: "João",
+  sobrenome: "da Silva",
+  cidade: "Paracatu"
+}
 ```
 
-* Sass - You're going to use [Sass](http://sass-lang.com/) to compile CSS during your grunt task. Make sure you have ruby installed, and then install Sass using gem install:
+Para manter uma estrutura coerente e consistente, utilizamos um modelo em Mongoose, que basicamente simula uma tabela SQL e pode ser considerado uma `Classe` em Orientação a Objetos.
 
-```bash
-$ gem install sass
+```javascript
+var mongoose = require('mongoose'),
+  Schema = mongoose.Schema;
+  
+// Schema (semelhante a tabela) User
+var UserSchema = new Schema({
+  nome: {
+    type: String,
+    default: ''
+  },
+  nascimento: {
+    type: String,
+    default: ''
+  },
+  cidade: {
+    type: String,
+    default: ''
+  }
+});
 ```
 
-```bash
-$ npm install -g grunt-cli
+Dessa maneira, o Mongoose não nos permitirá persistir objetos que estejam fora dessa estrutura.
+
+    Nota: o JavaScript até a versão ES5 (utilizada nesse projeto) não possui o conceito de Classe e Objeto, sendo assim não é considerada uma linguagem Orientada a Objetos nativa (como Java). Entretanto, existem design patterns que simulam esses conceitos, como exemplificado no código acima com o uso da keyword new. Esse design pattern é chamado Constructor e permite que sejam criados objetos de determinada classe e assim sejam utilizados conceitos como Herança.
+
+###Controller
+
+A camada de Controller do projeto é composta pelos Controllers em NodeJS e pelas rotas em ExpressJS que são chamadas pela camada superior e chamam os controllers.
+
+Os controllers possuem as regras de negócio. Ou seja, eles determinam como os dados serão trabalhados para serem retornados ou persistidos. Por exemplo:
+
+```javascript
+
+var mongoose = require('mongoose'),
+  User = mongoose.model('User');
+
+// Função para atualizar usuário
+exports.update = function (req, res) {
+  // Recebe o novo usuário da requisição HTTP
+  var user = req.user;
+  if (user) {
+    user.save(function (err) {
+      if (err) {
+        // Retorna erro HTTP 400
+        return res.status(400);
+      }
+    });
+  } else {
+    res.status(400);
+  }
+};
 ```
 
-* Gulp - (Optional) You may use Gulp for Live Reload, Linting, and SASS or LESS.
+As rotas são a porta de comunicação entre o lado do cliente e o lado do servidor. Nessa aplicação, as rotas são chamadas pelo cliente por meio de [AngularJS Services](https://docs.angularjs.org/guide/services).
 
-```bash
-$ npm install gulp -g
-```
+O que as rotas fazem é basicamente receber uma requisição HTTP do cliente, verificar se o cliente tem autorização para a requisição que ele deseja (segurança), chamar o controller que realiza a função desejada e retornar a resposta para o cliente, também pelo HTTP. Para o exemplo citado acima, a rota funciona da seguinte forma:
 
-## Downloading MEAN.JS
-There are several ways you can get the MEAN.JS boilerplate:
+```javascript
+module.exports = function (app) {
+  // User Routes
+  var users = require('./userController');
 
-### Cloning The GitHub Repository
-The recommended way to get MEAN.js is to use git to directly clone the MEAN.JS repository:
-
-```bash
-$ git clone https://github.com/meanjs/mean.git meanjs
-```
-
-This will clone the latest version of the MEAN.JS repository to a **meanjs** folder.
-
-### Downloading The Repository Zip File
-Another way to use the MEAN.JS boilerplate is to download a zip copy from the [master branch on GitHub](https://github.com/meanjs/mean/archive/master.zip). You can also do this using `wget` command:
-
-```bash
-$ wget https://github.com/meanjs/mean/archive/master.zip -O meanjs.zip; unzip meanjs.zip; rm meanjs.zip
-```
-
-Don't forget to rename **mean-master** after your project name.
-
-### Yo Generator
-Another way would be to use the [Official Yo Generator](http://meanjs.org/generator.html), which generates a copy of the MEAN.JS 0.4.x boilerplate and supplies an application generator to ease your daily development cycles.
-
-## Quick Install
-Once you've downloaded the boilerplate and installed all the prerequisites, you're just a few steps away from starting to develop your MEAN application.
-
-The first thing you should do is install the Node.js dependencies. The boilerplate comes pre-bundled with a package.json file that contains the list of modules you need to start your application. To learn more about the modules installed visit the NPM & Package.json section.
-
-To install Node.js dependencies you're going to use npm again. In the application folder run this in the command-line:
-
-```bash
-$ npm install
-```
-
-This command does a few things:
-* First it will install the dependencies needed for the application to run.
-* If you're running in a development environment, it will then also install development dependencies needed for testing and running your application.
-* Finally, when the install process is over, npm will initiate a bower install command to install all the front-end modules needed for the application
-
-## Running Your Application
-After the install process is over, you'll be able to run your application using Grunt, just run grunt default task:
+  app.route('/api/users').put(users.update);  
+};
 
 ```
-$ grunt
+
+Esse exemplo feito com o ExpressJS demonstra como funcionam as rotas. Ao receber uma requisição HTTP do tipo `put` na rota `/api/users`, a aplicação chamará o controller de User (exemplificado acima).
+
+###View
+
+Na arquitetura MVC, a View passa a impressão de ser uma parte simples, por ser responsável apenas por exibir os dados para o usuário. Porém as aplicações web tem se tornado cada vez mais complexas e com isso os browsers tem se tornado cada vez mais poderosos e consequentemente complexos. Por isso, a View desse projeto é tratada como uma aplicação a parte, onde os dados recebidos do servidor são trabalhados, modificados e por vezes otimizados, de acordo com a necessidade do sistema. 
+
+Sendo assim, esse projeto utiliza o AngularJS, um framework pensado para obter alta performance com grande foco na interface e na experiência do usuário e ao mesmo tempo com um código escalável, bem estruturado e organizado.
+
+O AngularJS utiliza o padrão arquitetural MVVM, muito semelhante ao MVC, com a difença que o ViewModel (que substitui o Controller) possui uma referência do Model que se comunica com a View, ou seja, se essa referência é alterada, a View se atualiza automaticamente (e vice-versa) graças a um mecanismo de data-binding, nesse caso implementado pelo AngularJS.
+
+Dessa forma o Angular funciona com os seguintes passos:
+ 1. Um service requisita uma rota do servidor;
+ 2. Ele recebe o dado que é salvo na aplicação, normalmente no `$scope` (referência do Model)
+ 3. Os controllers do Angular (ViewModel) são responsáveis por trabalhar os dados;
+ 4. A view exibe os dados.
+
+Caso os dados sejam alterados e queiram ser persistidos na base de dados, realiza-se esse passo-a-passo de trás pra frente.
+
+####Angular Model
+
+Como brevemente explicado acima, os modelos no Angular são os dados recebidos do servidor. Logo, normalmente, eles estão na estrutura pré definida pelo modelo do servidor.
+
+Através de services, requisita-se a rota desejada. Continuando o exemplo acima, caso desejemos atualizar um usuário devemos criar o seguinte serviço no Angular:
+
+```javascript
+angular.module('users').service('Users', ['$resource',
+  function ($resource) {
+    return $resource('api/users', {}, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }
+]);
 ```
 
-Your application should run on port 3000 with the *development* environment configuration, so in your browser just go to [http://localhost:3000](http://localhost:3000)
+Esse exemplo simplesmente define a criação de um Service que atuará realizando uma requisição PUT para a rota `api/users` quando solicitado.
 
-That's it! Your application should be running. To proceed with your development, check the other sections in this documentation.
-If you encounter any problems, try the Troubleshooting section.
+####Angular ViewModel
 
-* explore `config/env/development.js` for development environment configuration options
+A camada de ViewModel, implementada por meio de estruturas denominadas controllers, são as responsáveis por chamar o serviço e com isso receber ou enviar os dados, mantendo uma referência ao modelo que é acessado pela View.
 
-### Running in Production mode
-To run your application with *production* environment configuration, execute grunt as follows:
+No caso do exemplo, o controller seria responsável por enviar os dados atualizados na View para o backend.
 
-```bash
-$ grunt prod
+####Angular View
+
+As Views no AngularJS são páginas em HTML extendidas com alguns comandos únicos implementados pelo framework. Por meio delas, pode-se acessar a ViewModel e alterar os dados ou chamar métodos do controller que façam isso.
+
+```HTML
+<section>
+  <div class="page-header">
+    <h1>User <span ng-bind="user.username"></span></h1>
+  </div>
+  <div class="col-md-12">
+    <form name="userForm" ng-submit="update()" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" class="form-control" ng-model="user.nome" placeholder="First Name" required />
+          <div ng-messages="userForm.nome.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">First name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="sobrenome">Sobrenome</label>
+          <input type="text" id="sobrenome" name="sobrenome" class="form-control" ng-model="user.sobrenome" placeholder="Last Name" required />
+          <div ng-messages="userForm.sobrenome.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Last name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="cidade">Cidade</label>
+          <div class="controls">
+            <input class="form-control" type="text" name="cidade" ng-model="user.cidade" id="cidade" ng-list required />
+            <div ng-messages="userForm.cidade.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">At least one role is required.</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Update" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
+
 ```
-
-* explore `config/env/production.js` for production environment configuration options
-
-### Running with User Seed
-To have default account(s) seeded at runtime:
-
-In Development:
-```bash
-MONGO_SEED=true grunt
-```
-It will try to seed the users 'user' and 'admin'. If one of the user already exists, it will display an error message on the console. Just grab the passwords from the console.
-
-In Production:
-```bash
-MONGO_SEED=true grunt prod
-```
-This will seed the admin user one time if the user does not already exist. You have to copy the password from the console and save it.
-
-### Running with TLS (SSL)
-Application will start by default with secure configuration (SSL mode) turned on and listen on port 8443.
-To run your application in a secure manner you'll need to use OpenSSL and generate a set of self-signed certificates. Unix-based users can use the following command:
-
-```bash
-$ sh ./scripts/generate-ssl-certs.sh
-```
-
-Windows users can follow instructions found [here](http://www.websense.com/support/article/kbarticle/How-to-use-OpenSSL-and-Microsoft-Certification-Authority).
-After you've generated the key and certificate, place them in the *config/sslcerts* folder.
-
-Finally, execute grunt's prod task `grunt prod`
-* enable/disable SSL mode in production environment change the `secure` option in `config/env/production.js`
-
-
-## Testing Your Application
-You can run the full test suite included with MEAN.JS with the test task:
-
-```bash
-$ grunt test
-```
-
-This will run both the server-side tests (located in the app/tests/ directory) and the client-side tests (located in the public/modules/*/tests/).
-
-To execute only the server tests, run the test:server task:
-
-```bash
-$ grunt test:server
-```
-
-And to run only the client tests, run the test:client task:
-
-```bash
-$ grunt test:client
-```
-
-## Running your application with Gulp
-
-After the install process, you can easily run your project with:
-
-```bash
-$ gulp
-```
-or
-
-```bash
-$ gulp default
-```
-
-The server is now running on http://localhost:3000 if you are using the default settings. 
-
-### Running Gulp Development Environment
-
-Start the development environment with:
-
-```bash
-$ gulp dev
-```
-
-### Running in Production mode
-To run your application with *production* environment configuration, execute gulp as follows:
-
-```bash
-$ gulp prod
-```
-
-### Testing Your Application with Gulp
-Using the full test suite included with MEAN.JS with the test task:
-
-### Run all tests
-```bash
-$ gulp test
-```
-
-### Run server tests
-```bash
-gulp test:server
-```
-
-### Run client tests
-```bash
-gulp test:client
-```
-
-### Run e2e tests
-```bash
-gulp test:e2e
-```
-
-## Development and deployment With Docker
-
-* Install [Docker](https://docs.docker.com/installation/#installation)
-* Install [Compose](https://docs.docker.com/compose/install/)
-
-* Local development and testing with compose:
-```bash
-$ docker-compose up
-```
-
-* Local development and testing with just Docker:
-```bash
-$ docker build -t mean .
-$ docker run -p 27017:27017 -d --name db mongo
-$ docker run -p 3000:3000 --link db:db_1 mean
-$
-```
-
-* To enable live reload, forward port 35729 and mount /app and /public as volumes:
-```bash
-$ docker run -p 3000:3000 -p 35729:35729 -v /Users/mdl/workspace/mean-stack/mean/public:/home/mean/public -v /Users/mdl/workspace/mean-stack/mean/app:/home/mean/app --link db:db_1 mean
-```
-
-## Getting Started With MEAN.JS
-You have your application running, but there is a lot of stuff to understand. We recommend you go over the [Official Documentation](http://meanjs.org/docs.html).
-In the docs we'll try to explain both general concepts of MEAN components and give you some guidelines to help you improve your development process. We tried covering as many aspects as possible, and will keep it updated by your request. You can also help us develop and improve the documentation by checking out the *gh-pages* branch of this repository.
-
-## Community
-* Use the [Official Website](http://meanjs.org) to learn about changes and the roadmap.
-* Join #meanjs on freenode.
-* Discuss it in the new [Google Group](https://groups.google.com/d/forum/meanjs)
-* Ping us on [Twitter](http://twitter.com/meanjsorg) and [Facebook](http://facebook.com/meanjs)
-
-## Contributing
-We welcome pull requests from the community! Just be sure to read the [contributing](https://github.com/meanjs/mean/blob/master/CONTRIBUTING.md) doc to get started.
-
-## Deploying To Cloud Foundry
-
-Cloud Foundry is an open source platform-as-a-service (PaaS).  The MEANJS project
-can easily be deployed to any Cloud Foundry instance.  The easiest way to deploy the
-MEANJS project to Cloud Foundry is to use a public hosted instance.  The two most popular
-instances are [Pivotal Web Services](https://run.pivotal.io/) and
-[IBM Bluemix](https://bluemix.net).  Both provide free trials and support pay-as-you-go models
-for hosting applications in the cloud.  After you have an account follow the below steps to deploy MEANJS.
-
-* Install the [Cloud Foundry command line tools](http://docs.cloudfoundry.org/devguide/installcf/install-go-cli.html).
-* Now you need to log into Cloud Foundry from the Cloud Foundry command line.
-  *  If you are using Pivotal Web Services run `$ cf login -a api.run.pivotal.io`.
-  *  If you are using IBM Bluemix run `$ cf login -a api.ng.bluemix.net`.
-* Create a Mongo DB service.
-+  *  If you are using Pivotal Web Services run `$ cf create-service mongolab sandbox mean-mongo`
-+  *  If you are using IBM Bluemix run `$ cf create-service mongodb 100 mean-mongo`
-* Clone the GitHub repo for MEANJS if you have not already done so
-  * `$ git clone https://github.com/meanjs/mean.git && cd mean`
-* Run `$ npm install`
-* Run the Grunt Build task to build the optimized JavaScript and CSS files
-  * `$ grunt build`
-* Deploy MEANJS to Cloud Foundry
-  * `$ cf push`
-
-After `cf push` completes you will see the URL to your running MEANJS application 
-(your URL will be different).
-
-    requested state: started
-    instances: 1/1
-    usage: 128M x 1 instances
-    urls: mean-humbler-frappa.mybluemix.net
-
-Open your browser and go to that URL and your should see your MEANJS app running!
-
-###  Deploying MEANJS To IBM Bluemix
-IBM Bluemix is a Cloud Foundry based PaaS.  By clicking the button below you can signup for Bluemix and deploy
-a working copy of MEANJS to the cloud without having to do the steps above.
-
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https%3A%2F%2Fgithub.com%2Fmeanjs%2Fmean)
-
-After the deployment is finished you will be left with a copy of the MEANJS code in your own private Git repo
-in Bluemix complete with a pre-configured build and deploy pipeline.  Just clone the Git repo, make your changes, and
-commit them back.  Once your changes are committed, the build and deploy pipeline will run automatically deploying
-your changes to Bluemix.
-
-## Credits
-Inspired by the great work of [Madhusudhan Srinivasa](https://github.com/madhums/)
-The MEAN name was coined by [Valeri Karpov](http://blog.mongodb.org/post/49262866911/the-mean-stack-mongodb-expressjs-angularjs-and)
-
-## License
-(The MIT License)
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
